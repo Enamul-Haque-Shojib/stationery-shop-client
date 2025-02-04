@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useDeleteProductMutation, useGetAllProductsQuery } from '../../../redux/features/admin/adminApi';
-import { Button, Space, Table, Card, Typography, message, Popconfirm } from 'antd';
+import { Button, Space, Table, Typography, message, Popconfirm } from 'antd';
 import type { TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 

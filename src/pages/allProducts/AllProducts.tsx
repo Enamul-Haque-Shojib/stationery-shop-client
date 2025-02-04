@@ -4,10 +4,21 @@ import Cart from '../Carts/Cart';
 import { useState } from 'react';
 
 
+type TProduct = {
+  _id: string;
+  title: string;
+  productImgUrl: string;
+  brand: string;
+  price: number;
+  category: string;
+  quantity: number;
+  isStock: boolean;
+};
+
 const { Title } = Typography;
 
 const AllProducts = () => {
-  const { data: allProducts, isLoading } = useGetAllProductsQuery(undefined);
+  const { data: allProducts } = useGetAllProductsQuery(undefined);
   const [getAllQueryProducts, { isLoading: isQueryLoading }] = useGetAllQueryProductsMutation();
 
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -60,7 +71,7 @@ const AllProducts = () => {
           ) : (
             <Row gutter={[16, 16]}>
               {displayedProducts?.length > 0 ? (
-                displayedProducts.map((product) => (
+                displayedProducts.map((product:TProduct) => (
                   <Col key={product._id} xs={24} sm={12} md={8} lg={8}>
                     <Cart product={product} />
                   </Col>

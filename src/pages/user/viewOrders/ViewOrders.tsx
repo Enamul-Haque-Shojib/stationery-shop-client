@@ -1,6 +1,5 @@
-import { Button, Space, Table, Typography, Card } from 'antd';
+import { Button, Space, Table, Typography } from 'antd';
 import type { TableProps } from 'antd';
-import { Link } from 'react-router-dom';
 import { useGetAllUserOrderQuery } from '../../../redux/features/user/userApi';
 import { useOrderStatusMutation } from '../../../redux/features/admin/adminApi';
 import { useAppSelector } from '../../../redux/hooks';
@@ -92,10 +91,10 @@ const ViewOrders = () => {
 
   return (
     <div>
-       {/* <Card style={{ maxWidth: 1000, margin: 'auto', padding: 24, borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}> */}
+ 
       <Title level={2} style={{ textAlign: 'center', marginBottom: 24 }}>All Orders</Title>
       <Table<TUserOrder> loading={isLoading} columns={columns} dataSource={tableData} pagination={{ pageSize: 5 }} />
-     {/* </Card> */}
+ 
     </div>
     
   );

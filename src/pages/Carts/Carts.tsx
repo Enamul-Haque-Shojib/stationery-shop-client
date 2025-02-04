@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { useGetAllProductsQuery } from '../../redux/features/admin/adminApi';
-import { Button, Row, Col, Card, Spin, Typography } from 'antd';
+import { Button, Row, Col, Spin, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import Cart from './Cart';
 
