@@ -1,0 +1,81 @@
+import { useGetAllProductsQuery, useGetAllQueryProductsMutation } from '../../redux/features/admin/adminApi';
+import { Row, Col, Card, Typography, Divider, Spin } from 'antd';
+import Cart from '../Carts/Cart';
+import { useState } from 'react';
+
+
+const { Title } = Typography;
+
+const AllProducts = () => {
+  const { data: allProducts, isLoading } = useGetAllProductsQuery(undefined);
+  const [getAllQueryProducts, { isLoading: isQueryLoading }] = useGetAllQueryProductsMutation();
+
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Fetch products when a category is clicked
+  const handleCategories = async (category: string) => {
+    setSelectedCategory(category);  // Update selected category
+    try {
+      const response = await getAllQueryProducts(category).unwrap();
+      setFilteredProducts(response?.data || []); // Set filtered products
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  // Decide which product list to show
+  const displayedProducts = selectedCategory ? filteredProducts : allProducts?.data;
+
+  return (
+    <div style={{ padding: '20px 40px' }}>
+    
+
+      <Row gutter={[16, 16]}>
+        {/* Sidebar - Categories */}
+        <Col xs={24} md={6}>
+          <Card>
+            <Title level={4}>Categories</Title>
+            <Divider />
+            {["Pencil", "Pen", "Notebook", "Black Board", "Sketchbook"].map((category) => (
+              <h2 
+                key={category} 
+                onClick={() => handleCategories(category)} 
+                style={{
+                  cursor: "pointer",
+                  color: selectedCategory === category ? "blue" : "black",
+                  transition: "color 0.3s",
+                }}
+              >
+                {category}
+              </h2>
+            ))}
+          </Card>
+        </Col>
+
+        {/* Products Grid */}
+        <Col xs={24} md={18}>
+          {isQueryLoading ? (
+            <Spin size="large" style={{ display: "block", margin: "auto" }} />
+          ) : (
+            <Row gutter={[16, 16]}>
+              {displayedProducts?.length > 0 ? (
+                displayedProducts.map((product) => (
+                  <Col key={product._id} xs={24} sm={12} md={8} lg={8}>
+                    <Cart product={product} />
+                  </Col>
+                ))
+              ) : (
+                <Title level={4} style={{ textAlign: "center", width: "100%" }}>
+                  No Products Found
+                </Title>
+              )}
+            </Row>
+          )}
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default AllProducts;
