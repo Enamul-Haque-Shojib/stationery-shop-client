@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetSingleProductsQuery } from '../../redux/features/admin/adminApi';
-import { Button, Card, Row, Col, Typography, Spin, Divider } from 'antd';
+import { Button, Card, Row, Col, Typography, Spin, Divider, notification } from 'antd';
 import { useAddOrderMutation } from '../../redux/features/user/userApi';
 import { useAppSelector } from '../../redux/hooks';
 import { currentAuth } from '../../redux/features/auth/authSlice';
@@ -60,8 +60,27 @@ const CartDetails = () => {
             quantity: orderQuantity,
             price: orderPrice
         }
-        const res = await addOrder(orderInfo).unwrap();
-        console.log(res);
+
+        try {
+            const res = await addOrder(orderInfo).unwrap();
+            console.log(res);
+
+            // Success notification
+            notification.success({
+                message: 'Order Placed Successfully',
+                description: `Your order for ${orderQuantity} ${title}(s) has been placed successfully!`,
+                placement: 'bottomRight',
+            });
+        } catch (error) {
+            console.error(error);
+
+            // Error notification
+            notification.error({
+                message: 'Order Failed',
+                description: 'There was an issue placing your order. Please try again later.',
+                placement: 'bottomRight',
+            });
+        }
     };
 
     return (

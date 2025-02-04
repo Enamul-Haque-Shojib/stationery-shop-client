@@ -12,7 +12,7 @@ const ProfileSettings = () => {
     <Card
       hoverable
       style={{ maxWidth: 620, margin: 'auto', borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-      bodyStyle={{ padding: screens.xs ? 16 : 32 }}
+      styles={{body:{ padding: screens.xs ? 16 : 32 }}}
     >
       <Flex gap={screens.xs ? 16 : 32} align="center" vertical={screens.xs}>
         <Avatar

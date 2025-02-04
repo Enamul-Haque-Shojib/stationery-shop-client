@@ -54,7 +54,7 @@ const Login = () => {
                 <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
                     <PHInput type="email" name="email" label="Email" />
                     <PHInput type="password" name="password" label="Password" />
-                    <p>Already have Account? <Link to='/register'>Sign Up</Link></p>
+                    <p>Create an Account <Link to='/register'>Sign Up</Link></p>
                     <Button type="primary" htmlType="submit" block loading={isLoading}>
                         Login
                     </Button>

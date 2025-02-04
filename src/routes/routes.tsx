@@ -15,6 +15,8 @@ import Register from "../pages/register/Register";
 import Login from "../pages/Login/Login";
 import Home from "../pages/home/Home";
 import AllProducts from "../pages/allProducts/AllProducts";
+import ProtectedRoutes from "../layout/ProtectedRoutes";
+import About from "../pages/about/About";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +38,10 @@ export const router = createBrowserRouter([
           path: '/all-products',
           element: <AllProducts></AllProducts>
         },
+        {
+          path: '/about',
+          element: <About></About>
+        },
       ]
     },
    
@@ -47,21 +53,22 @@ export const router = createBrowserRouter([
       path: '/login',
       element: <Login></Login>
     },
+    
     {
       path: '/admin',
       element: (
-        // <ProtectedRoute role="admin">
+        <ProtectedRoutes role="admin">
           <DashboardRoot />
-        // </ProtectedRoute>
+         </ProtectedRoutes>
       ),
       children: routeGenerator(adminPaths),
     },
     {
       path: '/user',
       element: (
-        // <ProtectedRoute role="admin">
+        <ProtectedRoutes role="user">
           <DashboardRoot />
-        // </ProtectedRoute>
+         </ProtectedRoutes>
       ),
       children: routeGenerator(userPaths),
     },

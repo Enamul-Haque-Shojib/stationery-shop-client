@@ -67,10 +67,8 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         {!isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            
-            {auth ? (
-              <>
-                <NavLink
+
+<NavLink
                   to={`/`}
                   style={({ isActive }) => ({
                     textDecoration: "none",
@@ -90,6 +88,19 @@ const Navbar = () => {
                 >
                 All Products
                 </NavLink>
+                <NavLink
+                  to={`/about`}
+                  style={({ isActive }) => ({
+                    textDecoration: "none",
+                    color: isActive ? "#FFD700" : "white",
+                    transition: "color 0.3s",
+                  })}
+                >
+                About
+                </NavLink>
+            
+            {auth ? (
+              <>
                 <NavLink
                   to={`/${auth.role}/dashboard`}
                   style={({ isActive }) => ({
@@ -173,15 +184,7 @@ const Navbar = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         
-          {auth ? (
-            <>
-            <Avatar
-                   src={userData?.imageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
-                    size="large"
-                    icon={<UserOutlined />}
-                    style={{ cursor: "pointer" }}
-                  />
-              <NavLink
+        <NavLink
                 to={`/`}
                 style={{ fontSize: "16px", textDecoration: "none", color: "#4B0082" }}
                 onClick={() => setDrawerOpen(false)}
@@ -195,6 +198,22 @@ const Navbar = () => {
               >
                 All Products
               </NavLink>
+              <NavLink
+                to={`/about`}
+                style={{ fontSize: "16px", textDecoration: "none", color: "#4B0082" }}
+                onClick={() => setDrawerOpen(false)}
+              >
+                About
+              </NavLink>
+          {auth ? (
+            <>
+            <Avatar
+                   src={userData?.imageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                    size="large"
+                    icon={<UserOutlined />}
+                    style={{ cursor: "pointer" }}
+                  />
+             
               <NavLink
                 to={`/${auth.role}/dashboard`}
                 style={{ fontSize: "16px", textDecoration: "none", color: "#4B0082" }}
