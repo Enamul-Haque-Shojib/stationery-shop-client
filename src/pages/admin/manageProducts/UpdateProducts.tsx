@@ -1,14 +1,8 @@
-
 import { Controller, FieldValues } from "react-hook-form";
-
-import { toast } from 'sonner';
-
-import { Button, Form, Input } from "antd";
-
-
+import { Button, Form, Input, Card, Typography, Row, Col, Upload, Spin, message } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
-
 import PHSelect from "../../../components/form/PHSelect";
 import { categoryOptions } from "../../../constant/global";
 import PHTextArea from "../../../components/form/PHTextArea";
@@ -16,107 +10,107 @@ import { useGetSingleProductsQuery, useUpdateProductMutation } from "../../../re
 import { useImageUploadMutation } from "../../../redux/features/ImageUpload/ImageUploadApi";
 import { useParams } from "react-router-dom";
 
+const { Title } = Typography;
+
 const UpdateProducts = () => {
-    const productId = useParams();
+    const { id } = useParams();
+    const [updateProduct] = useUpdateProductMutation();
+    const { data: getSingleProduct, isLoading } = useGetSingleProductsQuery(id);
+    const [imageUpload] = useImageUploadMutation();
 
-     const [updateProduct] = useUpdateProductMutation();
-     const {data: getSingleProduct, isLoading} = useGetSingleProductsQuery(productId.id);
+    const { _id, title, productImgUrl, brand, price, category, description, quantity } = getSingleProduct?.data || {};
 
-     
-     const {_id,title, productImgUrl, brand, price, category, description, quantity} = getSingleProduct?.data || {}
+    const defaultValues = {
+        title: title || '',
+        image: productImgUrl || '',
+        brand: brand || '',
+        price: price || '',
+        category: category || '',
+        description: description || '',
+        quantity: quantity || ''
+    };
 
-         const [imageUpload] = useImageUploadMutation();
-        const defaultValues = {
-            title: title || '',
-            image: productImgUrl || '',
-            brand: brand || '',
-            price: price || '',
-            category : category || '',
-            description: description || '',
-            quantity: quantity || ''
-    
-        };
-    
-        const onSubmit = async (data: FieldValues) => {
-         
-            const toastId = toast.loading('Creating Product...');
-           
-            console.log(typeof data.image)
-            let productInfo;
-            try{
+    const onSubmit = async (data: FieldValues) => {
+        const loadingMessage = message.loading('Updating Product...', 0);
+        let productInfo;
 
-                
-                if(typeof data.image === 'object'){
-                    const formData = new FormData();
-        
-                    formData.append("image", data.image);
-            
-                    const response = await imageUpload(formData).unwrap();
-                    productInfo = {
-                        title: data.title,
-                        productImgUrl: response.data.url,
-                        brand: data.brand,
-                        price: parseInt(data.price),
-                        category: data.category,
-                        description: data.description,
-                        quantity: parseInt(data.quantity)
-                    }
-                       
-                }else{
-                    productInfo = {
-                        title: data.title,
-                        productImgUrl,
-                        brand: data.brand,
-                        price: parseInt(data.price),
-                        category: data.category,
-                        description: data.description,
-                        quantity: parseInt(data.quantity)
-                    }
-                }
-           
-            
-                
-                // console.log(productInfo);
-               
-    
-                const res = await updateProduct({_id,productInfo}).unwrap();
-                console.log(res)
-               
-             
-                toast.success('Product Added', {id: toastId, duration: 2000})
-            }catch(err){
-                console.log(err)
-                toast.error('Something went wrong', {id: toastId, duration: 2000})
+        try {
+            if (typeof data.image === 'object') {
+                const formData = new FormData();
+                formData.append("image", data.image);
+                const response = await imageUpload(formData).unwrap();
+
+                productInfo = {
+                    title: data.title,
+                    productImgUrl: response.data.url,
+                    brand: data.brand,
+                    price: parseInt(data.price),
+                    category: data.category,
+                    description: data.description,
+                    quantity: parseInt(data.quantity)
+                };
+            } else {
+                productInfo = {
+                    title: data.title,
+                    productImgUrl,
+                    brand: data.brand,
+                    price: parseInt(data.price),
+                    category: data.category,
+                    description: data.description,
+                    quantity: parseInt(data.quantity)
+                };
             }
-    
+
+            await updateProduct({ _id, productInfo }).unwrap();
+            loadingMessage(); // Close loading message
+            message.success('Product Updated Successfully', 2);
+        } catch (err) {
+            loadingMessage(); // Close loading message
+            message.error('Something went wrong', 2);
         }
-        if(isLoading){
-            return <p>Loading...</p>
-        }
+    };
+
+    if (isLoading) {
+        return (
+            <div style={{ textAlign: 'center', marginTop: 50 }}>
+                <Spin size="large" />
+            </div>
+        );
+    }
+
     return (
-        <div>
-            <h1>Update Products</h1>
+        <div >
+            <Title level={2} style={{ textAlign: 'center' }}>Update Product</Title>
             <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-                <PHInput type="text" name="title" label="Title"/>
-                <Controller
-                name="image"
-                render={({ field: { onChange, value, ...field } }) => (
-                  <Form.Item label="Image">
-                    <Input
-                      type="file"
-                      value={value?.fileName}
-                      {...field}
-                      onChange={(e) => onChange(e.target.files?.[0])}
-                    />
-                  </Form.Item>
-                )}
-              />
-                <PHInput type="text" name="brand" label="Brand"/>
-                <PHInput type="text" name="price" label="Price"/>
-                <PHSelect options={categoryOptions} name="category" label="Category" />
-                <PHTextArea name="description" label="Description"/>
-                <PHInput type="text" name="quantity" label="Quantity"/>
-                <Button htmlType="submit">Update Product</Button>
+                <Row gutter={16}>
+                    <Col span={12}><PHInput type="text" name="title" label="Title" /></Col>
+                    <Col span={12}><PHInput type="text" name="brand" label="Brand" /></Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={12}><PHInput type="text" name="price" label="Price" /></Col>
+                    <Col span={12}><PHInput type="text" name="quantity" label="Quantity" /></Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={12}><PHSelect options={categoryOptions} name="category" label="Category" /></Col>
+                    <Col span={12}>
+                        <Controller
+                            name="image"
+                            render={({ field: { onChange, value, ...field } }) => (
+                                <Form.Item label="Image">
+                                    <Upload
+                                        beforeUpload={() => false}
+                                        onChange={(info) => onChange(info.file)}
+                                        showUploadList={false}
+                                    >
+                                        <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                    </Upload>
+                                </Form.Item>
+                            )}
+                        />
+                    </Col>
+                </Row>
+                <PHTextArea name="description" label="Description" />
+                <Button type="primary" htmlType="submit" block>Update Product</Button>
             </PHForm>
         </div>
     );

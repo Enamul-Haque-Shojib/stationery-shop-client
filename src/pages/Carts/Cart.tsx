@@ -22,7 +22,7 @@ const Cart = ({ product }) => {
       <Meta title={title} description={<Text type="secondary">{brand}</Text>} />
       <p>Category: {category}</p>
       <p><strong>Price:</strong> ${price}</p>
-      <p>Status: {inStock ? <Text type="success">In Stock</Text> : <Text type="danger">Out of Stock</Text>}</p>
+      
       <Link to={`/cart-details/${_id}`}>
         <Button type="primary" block>View Details</Button>
       </Link>

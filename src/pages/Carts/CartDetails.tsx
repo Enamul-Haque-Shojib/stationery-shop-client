@@ -86,18 +86,25 @@ const CartDetails = () => {
                         <Text strong>Brand:</Text> <Text>{brand}</Text> <br />
                         <Text strong>Price:</Text> <Text style={{ color: 'green' }}>${orderPrice.toFixed(2)}</Text> <br />
                         <Text strong>Stock Quantity:</Text> <Text style={{ color: 'green' }}>{quantity}</Text> <br />
-                         
-                        <Button onClick={() => handleQuantity('-')} disabled={orderQuantity === 1}>-</Button> 
-                        <Text style={{ color: 'green', margin: '0 10px' }}>{orderQuantity}</Text> 
-                        <Button onClick={() => handleQuantity('+')} disabled={orderQuantity >= quantity}>+</Button><br />
+                         {
+                            auth?.role === 'user' && (
+                                <>
+                                <Button onClick={() => handleQuantity('-')} disabled={orderQuantity === 1}>-</Button> 
+                                <Text style={{ color: 'green', margin: '0 10px' }}>{orderQuantity}</Text> 
+                                <Button onClick={() => handleQuantity('+')} disabled={orderQuantity >= quantity}>+</Button><br />
+                                </>
+                            )
+                         }
                         
                         <Text strong>Stock: </Text>
                         {inStock ? <Text type='success'>In Stock</Text> : <Text type='danger'>Out of Stock</Text>}<br />
                         <Divider />
 
                         <Text>{description}</Text>
-
-                        <div style={{ marginTop: 20 }}>
+                        {
+                            auth?.role === 'user' && (
+                                <>
+                                    <div style={{ marginTop: 20 }}>
                             <Button 
                                 onClick={handleOrderNow} 
                                 disabled={quantity === 0} 
@@ -108,6 +115,9 @@ const CartDetails = () => {
                                 {quantity === 0 ? "Out of Stock" : "Order Now"}
                             </Button>
                         </div>
+                                </>
+                            ) 
+                        }
                     </Col>
                 </Row>
             </Card>

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useGetMarqueeImageQuery } from '../../redux/features/marqueeImag/marqueeImageApi';
 import Marquee from 'react-fast-marquee';
 import { Image } from 'antd';
@@ -12,7 +12,7 @@ const MarqueeImage = () => {
     return (
         <div>
             <Marquee autoFill={true}>
-    {marqueeImgData?.data.map((imgMarq : {_id: string, image: string}) => (
+            {marqueeImgData?.data.map((imgMarq : {_id: string, image: string}) => (
                 
                 <Image
                 key={imgMarq._id}
@@ -20,10 +20,10 @@ const MarqueeImage = () => {
                 height={200}
 
                 src={imgMarq.image}
-            />
-            ))
-          }
-      </Marquee>
+                />
+                ))
+            }
+            </Marquee>
         </div>
     );
 };

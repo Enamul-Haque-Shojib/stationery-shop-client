@@ -28,7 +28,7 @@ const AllProducts = () => {
   const displayedProducts = selectedCategory ? filteredProducts : allProducts?.data;
 
   return (
-    <div style={{ padding: '20px 40px' }}>
+    <div style={{ padding: '20px 40px',  width:'95%', margin: 'auto' }}>
     
 
       <Row gutter={[16, 16]}>
