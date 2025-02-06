@@ -21,7 +21,7 @@ const AllProducts = () => {
     const { data: productData, isLoading } = useGetAllProductsQuery(undefined);
     const [deleteProduct] = useDeleteProductMutation();
 
-    console.log(productData)
+    
     const handleDeleteProduct = async (record: TProduct) => {
         try {
             await deleteProduct(record.key);

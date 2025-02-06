@@ -1,4 +1,4 @@
-import { Button, Space, Table, Typography } from 'antd';
+import { Button, Space, Table, Typography, message } from 'antd';
 import type { TableProps } from 'antd';
 import { useGetAllUserOrderQuery } from '../../../redux/features/user/userApi';
 import { useOrderStatusMutation } from '../../../redux/features/admin/adminApi';
@@ -22,14 +22,17 @@ type TUserOrder = {
 const ViewOrders = () => {
   const auth = useAppSelector(currentAuth);
   const { data: viewOrder, isLoading } = useGetAllUserOrderQuery(auth?.email);
-  const [orderStatus] = useOrderStatusMutation();
+  const [orderStatus, { isLoading: isUpdating }] = useOrderStatusMutation();
 
+  // Handle order cancellation
   const handleCancelOrder = async (record: TUserOrder) => {
     try {
-      const res = await orderStatus({ id: record.key, status: { approveOrder: 'Cancelled' } });
-      console.log(res);
+      await orderStatus({ id: record.key, status: { approveOrder: 'Cancelled' } }).unwrap();
+      message.success('Order successfully cancelled!');
+      
     } catch (err) {
-      console.log(err);
+      message.error('Failed to cancel order. Please try again.');
+      console.error(err);
     }
   };
 
@@ -38,7 +41,6 @@ const ViewOrders = () => {
       title: 'Title',
       dataIndex: 'productTitle',
       key: 'title',
-      
     },
     {
       title: 'Category',
@@ -71,14 +73,22 @@ const ViewOrders = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="primary" disabled={record.approveOrder==='Shipping'} danger onClick={() => handleCancelOrder(record)}>Cancel</Button>
+          <Button
+            type="primary"
+            danger
+            loading={isUpdating}
+            disabled={record.approveOrder === 'Shipping' || record.approveOrder === 'Cancelled'}
+            onClick={() => handleCancelOrder(record)}
+          >
+            Cancel
+          </Button>
         </Space>
       ),
     },
   ];
 
-  const tableData: TUserOrder[] = viewOrder?.data?.map(
-    ({ _id, productTitle, productCategory, userEmail, price, quantity, approveOrder }: TUserOrder) => ({
+  const tableData: TUserOrder[] =
+    viewOrder?.data?.map(({ _id, productTitle, productCategory, userEmail, price, quantity, approveOrder }: TUserOrder) => ({
       key: _id,
       productTitle,
       productCategory,
@@ -86,17 +96,15 @@ const ViewOrders = () => {
       price,
       quantity,
       approveOrder,
-    })
-  ) || [];
+    })) || [];
 
   return (
     <div>
- 
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 24 }}>All Orders</Title>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: 24 }}>
+        All Orders
+      </Title>
       <Table<TUserOrder> loading={isLoading} columns={columns} dataSource={tableData} pagination={{ pageSize: 5 }} />
- 
     </div>
-    
   );
 };
 

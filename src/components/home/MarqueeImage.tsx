@@ -5,7 +5,7 @@ import { Image } from 'antd';
 
 const MarqueeImage = () => {
     const {data: marqueeImgData, isLoading} = useGetMarqueeImageQuery(undefined);
-    console.log(marqueeImgData?.data)
+    
     if(isLoading){
         return <p>Loading...</p>
     }

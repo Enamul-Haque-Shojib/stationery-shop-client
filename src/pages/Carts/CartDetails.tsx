@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetSingleProductsQuery } from '../../redux/features/admin/adminApi';
 import { Button, Card, Row, Col, Typography, Spin, Divider, notification } from 'antd';
@@ -62,8 +62,8 @@ const CartDetails = () => {
         }
 
         try {
-            const res = await addOrder(orderInfo).unwrap();
-            console.log(res);
+            await addOrder(orderInfo).unwrap();
+            
 
             // Success notification
             notification.success({

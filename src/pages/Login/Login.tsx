@@ -23,7 +23,7 @@ const Login = () => {
     };
 
     const onSubmit = async (data: FieldValues) => {
-        console.log(data);
+        
         const key = 'login'; // Unique key for loading message
         message.loading({ content: 'Logging in...', key });
     
@@ -33,7 +33,7 @@ const Login = () => {
                 password: data.password,
             };
             const res = await login(userInfo).unwrap();
-            console.log(res);
+            
     
             const auth = verifyToken(res.data.accessToken) as TAuth;
             dispatch(setAuth({ auth: auth, token: res.data.accessToken }));

@@ -39,7 +39,7 @@ const About = () => {
                 <Divider />
                 <Link to='/all-products'>
                 <Button type="primary" icon={<ShoppingCartOutlined />} size="large">
-                    Order Now
+                    Shop Now
                 </Button>
                 </Link>
               </Col>

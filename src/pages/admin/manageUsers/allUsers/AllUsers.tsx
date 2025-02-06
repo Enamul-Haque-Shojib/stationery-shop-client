@@ -20,7 +20,7 @@ const AllUsers = () => {
     const [activeStatus] = useActiveStatusMutation();
 
     const handleActiveStatus = async (record: TUser, status: string) => {
-      console.log(record, status);
+      
         const actionText = status==='Active' ? "Activated" : "Deactivated";
         const loadingMessage = message.loading(`Updating user status...`, 0);
 

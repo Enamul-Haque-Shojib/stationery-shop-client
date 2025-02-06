@@ -22,7 +22,7 @@ const Register = () => {
     };
 
     const onSubmit = async (data: FieldValues) => {
-        console.log(data);
+        
         const key = 'register'; // Unique key for loading message
         message.loading({ content: 'Signing Up...', key });
         try {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode, useEffect, useState } from 'react';
 import AuthContext from './AuthContext';
@@ -19,12 +20,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const getAuthData = async () => {
       try {
         const res = await profileData(auth?.email).unwrap();
-        console.log(res);
+        
         setUserData(res?.data);
       } catch (error) {
-        if (error.data?.success === false) {
+       
           dispatch(logout());
-        }
+        
       }
     };
 

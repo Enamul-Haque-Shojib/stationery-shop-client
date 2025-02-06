@@ -2,6 +2,7 @@ import { useGetAllProductsQuery, useGetAllQueryProductsMutation } from '../../re
 import { Row, Col, Card, Typography, Divider, Spin } from 'antd';
 import Cart from '../Carts/Cart';
 import { useState } from 'react';
+import { categories } from '../../constant/global';
 
 
 type TProduct = {
@@ -48,7 +49,7 @@ const AllProducts = () => {
           <Card>
             <Title level={4}>Categories</Title>
             <Divider />
-            {["Pencil", "Pen", "Notebook", "Black Board", "Sketchbook"].map((category) => (
+            {categories.map((category) => (
               <h2 
                 key={category} 
                 onClick={() => handleCategories(category)} 
