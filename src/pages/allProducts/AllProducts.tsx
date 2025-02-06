@@ -25,18 +25,17 @@ const AllProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Fetch products when a category is clicked
+  
   const handleCategories = async (category: string) => {
-    setSelectedCategory(category);  // Update selected category
+    setSelectedCategory(category);  
     try {
       const response = await getAllQueryProducts(category).unwrap();
-      setFilteredProducts(response?.data || []); // Set filtered products
+      setFilteredProducts(response?.data || []); 
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  // Decide which product list to show
   const displayedProducts = selectedCategory ? filteredProducts : allProducts?.data;
 
   return (
@@ -44,7 +43,7 @@ const AllProducts = () => {
     
 
       <Row gutter={[16, 16]}>
-        {/* Sidebar - Categories */}
+       
         <Col xs={24} md={6}>
           <Card>
             <Title level={4}>Categories</Title>
@@ -65,7 +64,7 @@ const AllProducts = () => {
           </Card>
         </Col>
 
-        {/* Products Grid */}
+     
         <Col xs={24} md={18}>
           {isQueryLoading ? (
             <Spin size="large" style={{ display: "block", margin: "auto" }} />
