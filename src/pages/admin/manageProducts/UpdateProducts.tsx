@@ -189,11 +189,11 @@ const UpdateProducts = () => {
             }
 
             await updateProduct({ _id, productInfo }).unwrap();
-            loadingMessage(); // Close loading message
+            loadingMessage(); 
             message.success('Product Updated Successfully', 2);
             navigate('/admin/all-products')
         } catch (err) {
-            loadingMessage(); // Close loading message
+            loadingMessage(); 
             message.error('Something went wrong', 2);
         }
     };
