@@ -9,7 +9,7 @@ const ShopFooter = () => {
     return (
         <Footer style={{ backgroundColor: "black", color: "white", padding: "40px 20px" }}>
           <Row gutter={[16, 16]} justify="center">
-            {/* Logo and Description */}
+            
             <Col xs={24} sm={12} md={8} lg={6}>
               <Title level={4} style={{ color: "white" }}>
                 Stationery Shop
@@ -20,7 +20,7 @@ const ShopFooter = () => {
               </Text>
             </Col>
     
-            {/* Quick Links */}
+          
             <Col xs={24} sm={12} md={8} lg={6}>
               <Title level={5} style={{ color: "white" }}>
                 Quick Links
@@ -49,7 +49,7 @@ const ShopFooter = () => {
               </Space>
             </Col>
     
-            {/* Contact Information */}
+            
             <Col xs={24} sm={12} md={8} lg={6}>
               <Title level={5} style={{ color: "white" }}>
                 Contact Us
@@ -61,7 +61,7 @@ const ShopFooter = () => {
               </Space>
             </Col>
     
-            {/* Social Media Links */}
+            
             <Col xs={24} sm={12} md={8} lg={6}>
               <Title level={5} style={{ color: "white" }}>
                 Follow Us
@@ -80,7 +80,7 @@ const ShopFooter = () => {
             </Col>
           </Row>
     
-          {/* Footer Bottom Text */}
+      
           <Row justify="center" style={{ marginTop: "40px" }}>
             <Col>
               <Text style={{ color: "#d1c4e9" }}>
