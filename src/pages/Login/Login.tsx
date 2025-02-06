@@ -24,7 +24,7 @@ const Login = () => {
 
     const onSubmit = async (data: FieldValues) => {
         
-        const key = 'login'; // Unique key for loading message
+        const key = 'login'; 
         message.loading({ content: 'Logging in...', key });
     
         try {

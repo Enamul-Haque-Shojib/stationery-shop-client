@@ -44,7 +44,7 @@ const CartDetails = () => {
         if (symbol === '-' && orderQuantity > 1) {
             const newQuantity = orderQuantity - 1;
             setOrderQuantity(newQuantity);
-            setOrderPrice(newQuantity * price); // ✅ Correct price calculation
+            setOrderPrice(newQuantity * price); 
         } else if (symbol === '+') {
             const newQuantity = orderQuantity + 1;
             setOrderQuantity(newQuantity);
@@ -65,7 +65,7 @@ const CartDetails = () => {
             await addOrder(orderInfo).unwrap();
             
 
-            // Success notification
+      
             notification.success({
                 message: 'Order Placed Successfully',
                 description: `Your order for ${orderQuantity} ${title}(s) has been placed successfully!`,
@@ -74,7 +74,7 @@ const CartDetails = () => {
         } catch (error) {
             console.error(error);
 
-            // Error notification
+        
             notification.error({
                 message: 'Order Failed',
                 description: 'There was an issue placing your order. Please try again later.',
@@ -87,7 +87,7 @@ const CartDetails = () => {
         <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
             <Card hoverable style={{ maxWidth: 800, padding: 20 }}>
                 <Row gutter={[16, 16]} align="middle">
-                    {/* Product Image */}
+                 
                     <Col xs={24} md={10}>
                         <img
                             alt={title}
@@ -96,7 +96,7 @@ const CartDetails = () => {
                         />
                     </Col>
 
-                    {/* Product Details */}
+                   
                     <Col xs={24} md={14}>
                         <Title level={3}>{title}</Title>
                         <Text type="secondary">{category}</Text>

@@ -39,7 +39,7 @@ const Carts = () => {
         
             <Row gutter={[16, 16]} justify="center">
                 {products?.data
-                    .slice(0, 6) // Show only first 6 products
+                    .slice(0, 6) 
                     .map((product: TProduct) => (
                         <Col key={product._id} xs={24} sm={12} md={8} lg={8}>
                             <Cart product={product} />

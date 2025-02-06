@@ -2,7 +2,7 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface AuthContextType {
-  userData: any;  // Adjust type based on actual data structure
+  userData: any;  
   setUserData: Dispatch<SetStateAction<any>>;
 }
 

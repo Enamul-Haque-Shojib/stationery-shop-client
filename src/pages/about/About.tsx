@@ -10,16 +10,16 @@ const About = () => {
         <Layout style={{ minHeight: '100vh' }}>
           <Layout.Content style={{ padding: '50px', backgroundColor: '#f0f2f5' }}>
             <Row gutter={32} align="middle">
-              {/* Image Section */}
+           
               <Col xs={24} md={12}>
                 <Image
-                  src="https://t4.ftcdn.net/jpg/09/51/91/59/360_F_951915996_PfCnh9fQ9NctWD28TXpFmRp67PfYRPf3.jpg" // Add the appropriate image URL here
+                  src="https://t4.ftcdn.net/jpg/09/51/91/59/360_F_951915996_PfCnh9fQ9NctWD28TXpFmRp67PfYRPf3.jpg" 
                   alt="Stationery Shop"
                   style={{ borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
                 />
               </Col>
     
-              {/* Mission Section */}
+          
               <Col xs={24} md={12}>
                 <Title level={2}>Welcome to Stationery Haven</Title>
                 <Paragraph>
