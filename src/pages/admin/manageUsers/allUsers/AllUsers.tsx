@@ -26,10 +26,10 @@ const AllUsers = () => {
 
         try {
             await activeStatus({ email: record.email, manage: { isActive: status } }).unwrap();
-            loadingMessage(); // Close loading message
+            loadingMessage(); 
             message.success(`User ${actionText} Successfully`);
         } catch (err) {
-            loadingMessage(); // Close loading message
+            loadingMessage(); 
             message.error(`Failed to update status`);
         }
     };
