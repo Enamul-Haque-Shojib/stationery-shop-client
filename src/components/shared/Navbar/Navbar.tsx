@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   const updateScreenSize = () => {
-    setIsMobile(window.innerWidth <= 768); // Mobile breakpoint
+    setIsMobile(window.innerWidth <= 768); 
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Navbar = () => {
           alignItems: "center",
         }}
       >
-        {/* Logo */}
+        
         <Link
           to="/"
           style={{
@@ -64,7 +64,7 @@ const Navbar = () => {
           
         </Link>
 
-        {/* Desktop Navigation */}
+        
         {!isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
 
@@ -161,7 +161,7 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Mobile Navigation Button */}
+        
         {isMobile && (
           <Button
             style={{ fontSize: "24px", color: "white", border: "none" }}
@@ -171,7 +171,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      
       <Drawer
         title="Menu"
         placement="right"
@@ -179,7 +179,7 @@ const Navbar = () => {
         open={drawerOpen}
         style={{ zIndex: 1050 }}
         styles={{
-          body: { padding: "20px" }, // Corrected usage of `styles.body`
+          body: { padding: "20px" }, 
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
